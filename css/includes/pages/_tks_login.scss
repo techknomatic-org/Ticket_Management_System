@@ -1,0 +1,448 @@
+// ==============================================================================
+// Techknomatic (TKS) Modern Ticket Management System Login UI Styles
+// ==============================================================================
+
+body.welcome-anonymous {
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+}
+
+.tks-login-wrapper {
+    width: 100%;
+    max-width: 1060px;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
+}
+
+.tks-login-card {
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    min-height: 640px;
+    transition: all 0.3s ease;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        max-width: 540px;
+        margin: 0 auto;
+    }
+}
+
+// Left Column (Login Form)
+.tks-login-form-col {
+    flex: 1.05;
+    padding: 50px 48px 40px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+
+    @media (max-width: 576px) {
+        padding: 36px 24px 30px 24px;
+    }
+}
+
+.tks-login-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.tks-login-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    img {
+        max-width: 220px;
+        height: auto;
+        max-height: 70px;
+        object-fit: contain;
+    }
+}
+
+.tks-login-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+}
+
+.tks-login-subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+    font-weight: 400;
+}
+
+.tks-form-group {
+    margin-bottom: 1.15rem;
+}
+
+.tks-form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.tks-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .tks-input-icon {
+        position: absolute;
+        left: 14px;
+        color: #94a3b8;
+        font-size: 17px;
+        pointer-events: none;
+        transition: color 0.2s ease;
+    }
+
+    .form-control,
+    input.form-control {
+        width: 100%;
+        height: 48px;
+        padding: 10px 14px 10px 42px;
+        border-radius: 12px;
+        border: 1.5px solid #e2e8f0;
+        background-color: #f8fafc;
+        font-size: 14.5px;
+        color: #0f172a;
+        transition: all 0.2s ease;
+        box-shadow: none;
+
+        &:focus {
+            background-color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    }
+
+    .tks-toggle-pwd {
+        position: absolute;
+        right: 12px;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+
+        &:hover {
+            color: #475569;
+        }
+    }
+}
+
+.tks-remember-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 14px 0 20px 0;
+    font-size: 13.5px;
+
+    .form-check {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .form-check-input {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 1.5px solid #cbd5e1;
+            cursor: pointer;
+
+            &:checked {
+                background-color: #2563eb;
+                border-color: #2563eb;
+            }
+        }
+
+        .form-check-label {
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+
+    .tks-forgot-link {
+        color: #2563eb;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+    }
+}
+
+.tks-btn-submit {
+    height: 48px;
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+
+    &:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+        color: #ffffff;
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+}
+
+.tks-contact-admin {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-top: 22px;
+    text-align: center;
+
+    a {
+        color: #2563eb;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// ==============================================================================
+// Right Column: Blue Hero Showcase (Exact Match to Design)
+// ==============================================================================
+.tks-login-showcase-blue {
+    flex: 1.15;
+    background: linear-gradient(155deg, #07235b 0%, #0c3b88 35%, #0d4bb8 70%, #06317d 100%);
+    position: relative;
+    padding: 44px 44px 0 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    color: #ffffff;
+
+    @media (max-width: 991px) {
+        padding: 36px 28px 0 28px;
+    }
+}
+
+// Decorative Corner Dot Pattern
+.tks-decorative-dots {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 90px;
+    height: 90px;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px);
+    background-size: 12px 12px;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+// Subtle Background Glow / Waves
+.tks-bg-glow {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.tks-side-header {
+    position: relative;
+    z-index: 2;
+}
+
+.tks-side-logo {
+    display: inline-flex;
+    margin-bottom: 24px;
+
+    img {
+        max-width: 220px;
+        height: auto;
+        max-height: 65px;
+        object-fit: contain;
+    }
+}
+
+.tks-hero-heading {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin: 0 0 14px 0;
+
+    .tks-cyan {
+        color: #38bdf8;
+    }
+
+    .tks-green {
+        color: #4ade80;
+    }
+
+    .tks-white {
+        color: #ffffff;
+    }
+}
+
+.tks-hero-subtitle {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.55;
+    margin: 0 0 16px 0;
+    font-weight: 400;
+}
+
+.tks-hero-divider {
+    width: 36px;
+    height: 3px;
+    background: #38bdf8;
+    border-radius: 2px;
+    margin: 0 0 24px 0;
+}
+
+// Features List (4 Items)
+.tks-blue-features {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 24px;
+}
+
+.tks-blue-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.tks-blue-icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    svg {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2.2;
+    }
+
+    &.blue {
+        background-color: #2563eb;
+        color: #ffffff;
+    }
+
+    &.green {
+        background-color: #16a34a;
+        color: #ffffff;
+    }
+
+    &.purple {
+        background-color: #7c3aed;
+        color: #ffffff;
+    }
+
+    &.orange {
+        background-color: #ea580c;
+        color: #ffffff;
+    }
+}
+
+.tks-blue-feature-content {
+    h4 {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 2px 0;
+        line-height: 1.25;
+    }
+
+    p {
+        font-size: 12.5px;
+        color: #94a3b8;
+        margin: 0;
+        line-height: 1.35;
+    }
+}
+
+// Bottom Laptop Dashboard Illustration
+.tks-laptop-mockup-container {
+    position: relative;
+    width: calc(100% + 88px);
+    margin-left: -44px;
+    margin-top: 10px;
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    border-bottom-right-radius: 28px;
+
+    @media (max-width: 991px) {
+        width: calc(100% + 56px);
+        margin-left: -28px;
+        border-bottom-left-radius: 28px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        transform: scale(1.04);
+        mask-image: linear-gradient(to top, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to top, black 85%, transparent 100%);
+    }
+}

@@ -1,0 +1,641 @@
+{#
+ # ---------------------------------------------------------------------
+ #
+ # GLPI - Gestionnaire Libre de Parc Informatique
+ #
+ # http://glpi-project.org
+ #
+ # @copyright 2015-2026 Teclib' and contributors.
+ # @licence   https://www.gnu.org/licenses/gpl-3.0.html
+ #
+ # ---------------------------------------------------------------------
+ #}
+
+{% extends 'layout/page_card_notlogged.html.twig' %}
+
+{% block page_body %}
+    <style>
+        body.welcome-anonymous {
+            background-color: #edf2f8 !important;
+            min-height: 100vh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+            color: #1e293b !important;
+            margin: 0 !important;
+            padding: 20px 0 !important;
+        }
+
+        .page-anonymous {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .tks-login-wrapper {
+            width: 100% !important;
+            max-width: 1060px !important;
+            margin: 0 auto !important;
+            padding: 0 16px !important;
+            box-sizing: border-box !important;
+        }
+
+        .tks-login-card {
+            background: #ffffff !important;
+            border-radius: 28px !important;
+            box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.14), 0 0 1px 1px rgba(15, 23, 42, 0.05) !important;
+            border: 1px solid rgba(226, 232, 240, 0.9) !important;
+            display: flex !important;
+            flex-direction: row !important;
+            overflow: hidden !important;
+            min-height: 620px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 920px) {
+            .tks-login-card {
+                flex-direction: column !important;
+                max-width: 520px !important;
+                margin: 0 auto !important;
+            }
+        }
+
+        /* Left Column */
+        .tks-login-form-col {
+            flex: 1 1 50% !important;
+            min-width: 0 !important;
+            padding: 48px 44px 40px 44px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            background: #ffffff !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 576px) {
+            .tks-login-form-col {
+                padding: 32px 20px 28px 20px !important;
+            }
+        }
+
+        .tks-login-header {
+            text-align: center !important;
+            margin-bottom: 24px !important;
+        }
+
+        .tks-login-logo {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-bottom: 14px !important;
+        }
+
+        .tks-login-logo img {
+            max-width: 220px !important;
+            height: auto !important;
+            max-height: 68px !important;
+            object-fit: contain !important;
+        }
+
+        .tks-login-title {
+            font-size: 27px !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            letter-spacing: -0.5px !important;
+            margin: 0 0 5px 0 !important;
+            line-height: 1.2 !important;
+        }
+
+        .tks-login-subtitle {
+            font-size: 13.5px !important;
+            color: #64748b !important;
+            margin: 0 !important;
+            font-weight: 400 !important;
+        }
+
+        .tks-form-group {
+            margin-bottom: 1.1rem !important;
+        }
+
+        .tks-form-label {
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            color: #334155 !important;
+            margin-bottom: 6px !important;
+            display: block !important;
+        }
+
+        .tks-input-wrapper {
+            position: relative !important;
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        .tks-input-wrapper .tks-input-icon {
+            position: absolute !important;
+            left: 14px !important;
+            color: #94a3b8 !important;
+            font-size: 17px !important;
+            pointer-events: none !important;
+        }
+
+        .tks-input-wrapper input.form-control,
+        .tks-input-wrapper .form-control {
+            width: 100% !important;
+            height: 48px !important;
+            padding: 10px 14px 10px 42px !important;
+            border-radius: 12px !important;
+            border: 1.5px solid #cbd5e1 !important;
+            background-color: #f8fafc !important;
+            font-size: 14.5px !important;
+            color: #0f172a !important;
+            box-sizing: border-box !important;
+            box-shadow: none !important;
+        }
+
+        .tks-input-wrapper input.form-control:focus {
+            background-color: #ffffff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+            outline: none !important;
+        }
+
+        .tks-toggle-pwd {
+            position: absolute !important;
+            right: 12px !important;
+            background: transparent !important;
+            border: none !important;
+            color: #94a3b8 !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            font-size: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .tks-remember-row {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            margin: 12px 0 20px 0 !important;
+            font-size: 13.5px !important;
+        }
+
+        .tks-btn-submit {
+            height: 48px !important;
+            background: #2563eb !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 12px !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .tks-btn-submit:hover {
+            background: #1d4ed8 !important;
+            color: #ffffff !important;
+        }
+
+        .tks-contact-admin {
+            font-size: 13px !important;
+            color: #64748b !important;
+            margin-top: 20px !important;
+            text-align: center !important;
+        }
+
+        .tks-contact-admin a {
+            color: #2563eb !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+        }
+
+        /* Right Column */
+        .tks-login-showcase-blue {
+            flex: 1 1 50% !important;
+            min-width: 0 !important;
+            background: linear-gradient(155deg, #07235b 0%, #0c3b88 35%, #0d4bb8 70%, #06317d 100%) !important;
+            position: relative !important;
+            padding: 42px 42px 0 42px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            overflow: hidden !important;
+            color: #ffffff !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 920px) {
+            .tks-login-showcase-blue {
+                padding: 36px 24px 0 24px !important;
+            }
+        }
+
+        .tks-decorative-dots {
+            position: absolute !important;
+            top: 20px !important;
+            right: 20px !important;
+            width: 90px !important;
+            height: 90px !important;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px) !important;
+            background-size: 12px 12px !important;
+            pointer-events: none !important;
+            opacity: 0.7 !important;
+        }
+
+        .tks-bg-glow {
+            position: absolute !important;
+            top: -50px !important;
+            right: -50px !important;
+            width: 350px !important;
+            height: 350px !important;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(37, 99, 235, 0) 70%) !important;
+            border-radius: 50% !important;
+            pointer-events: none !important;
+        }
+
+        .tks-side-header {
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .tks-side-logo {
+            display: inline-flex !important;
+            margin-bottom: 20px !important;
+        }
+
+        .tks-side-logo img {
+            max-width: 220px !important;
+            height: auto !important;
+            max-height: 65px !important;
+            object-fit: contain !important;
+        }
+
+        .tks-hero-heading {
+            font-size: 28px !important;
+            font-weight: 800 !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.5px !important;
+            margin: 0 0 12px 0 !important;
+            color: #ffffff !important;
+        }
+
+        .tks-cyan { color: #38bdf8 !important; }
+        .tks-green { color: #4ade80 !important; }
+        .tks-white { color: #ffffff !important; }
+
+        .tks-hero-subtitle {
+            font-size: 13.5px !important;
+            color: #cbd5e1 !important;
+            line-height: 1.5 !important;
+            margin: 0 0 16px 0 !important;
+            font-weight: 400 !important;
+        }
+
+        .tks-hero-divider {
+            width: 36px !important;
+            height: 3px !important;
+            background: #38bdf8 !important;
+            border-radius: 2px !important;
+            margin: 0 0 22px 0 !important;
+        }
+
+        /* Features List */
+        .tks-blue-features {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            position: relative !important;
+            z-index: 2 !important;
+            margin-bottom: 20px !important;
+        }
+
+        .tks-blue-feature-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 14px !important;
+        }
+
+        .tks-blue-icon-badge {
+            width: 40px !important;
+            min-width: 40px !important;
+            max-width: 40px !important;
+            height: 40px !important;
+            min-height: 40px !important;
+            max-height: 40px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .tks-blue-icon-badge svg {
+            width: 20px !important;
+            min-width: 20px !important;
+            max-width: 20px !important;
+            height: 20px !important;
+            min-height: 20px !important;
+            max-height: 20px !important;
+            display: block !important;
+            stroke-width: 2.2 !important;
+        }
+
+        .tks-blue-icon-badge.blue {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+
+        .tks-blue-icon-badge.green {
+            background-color: #16a34a !important;
+            color: #ffffff !important;
+        }
+
+        .tks-blue-icon-badge.purple {
+            background-color: #7c3aed !important;
+            color: #ffffff !important;
+        }
+
+        .tks-blue-icon-badge.orange {
+            background-color: #ea580c !important;
+            color: #ffffff !important;
+        }
+
+        .tks-blue-feature-content h4 {
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            margin: 0 0 2px 0 !important;
+            line-height: 1.25 !important;
+        }
+
+        .tks-blue-feature-content p {
+            font-size: 12px !important;
+            color: #94a3b8 !important;
+            margin: 0 !important;
+            line-height: 1.35 !important;
+        }
+
+        .tks-laptop-mockup-container {
+            position: relative !important;
+            width: calc(100% + 84px) !important;
+            margin-left: -42px !important;
+            margin-top: 8px !important;
+            z-index: 1 !important;
+            overflow: hidden !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        .tks-laptop-mockup-container img {
+            width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            object-fit: cover !important;
+            mask-image: linear-gradient(to top, black 85%, transparent 100%) !important;
+            -webkit-mask-image: linear-gradient(to top, black 85%, transparent 100%) !important;
+        }
+    </style>
+
+    <div class="tks-login-wrapper">
+        <div class="tks-login-card">
+            
+            {# Left Column: Login Form #}
+            <div class="tks-login-form-col">
+                <div class="tks-login-header">
+                    <div class="tks-login-logo">
+                        <img src="{{ path('pics/logos/logo-GLPI-250-black.png?v=tks2') }}" alt="Techknomatic" />
+                    </div>
+                    <h1 class="tks-login-title">Welcome Back!</h1>
+                    <p class="tks-login-subtitle">Please login to continue</p>
+                </div>
+
+                <form action="{{ path('front/login.php') }}" method="post" autocomplete="off" data-submit-once id="tksLoginForm">
+                    <input type="hidden" name="noAUTO" value="{{ noAuto }}"/>
+                    <input type="hidden" name="redirect" value="{{ redirect }}"/>
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}"/>
+
+                    {% if text_login|length > 0 %}
+                        <div class="rich_text_container text-center mb-3">
+                            {{ text_login|safe_html }}
+                        </div>
+                    {% endif %}
+
+                    <div class="tks-form-group">
+                        <label class="tks-form-label" for="login_name">{{ __('Username') }}</label>
+                        <div class="tks-input-wrapper">
+                            <i class="ti ti-user tks-input-icon"></i>
+                            <input type="text" class="form-control" id="login_name" name="login_name" placeholder="Enter your username" required autofocus />
+                        </div>
+                    </div>
+
+                    <div class="tks-form-group">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="tks-form-label mb-0" for="login_password">{{ __('Password') }}</label>
+                        </div>
+                        <div class="tks-input-wrapper">
+                            <i class="ti ti-lock tks-input-icon"></i>
+                            <input type="password" class="form-control" id="login_password" name="login_password" placeholder="••••••••" required autocomplete="current-password" />
+                            <button type="button" class="tks-toggle-pwd" id="togglePasswordBtn" title="Toggle password visibility">
+                                <i class="ti ti-eye" id="togglePasswordIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    {% if config('display_login_source') %}
+                        <div class="tks-form-group">
+                            <label class="tks-form-label" for="dropdown_auth{{ rand }}">{{ __('Login source') }}</label>
+                            {{ auth_dropdown_login|raw }}
+                        </div>
+                    {% endif %}
+
+                    <div class="tks-remember-row">
+                        {% if config('login_remember_time') %}
+                            <label class="form-check" for="login_remember" style="margin: 0; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" class="form-check-input" id="login_remember" name="login_remember" {{ config('login_remember_default') ? 'checked' : '' }} style="width: 17px; height: 17px; cursor: pointer;"/>
+                                <span class="form-check-label" style="cursor: pointer;">{{ __('Remember me') }}</span>
+                            </label>
+                        {% else %}
+                            <div></div>
+                        {% endif %}
+
+                        {% if show_lost_password %}
+                            <a href="{{ path('front/lostpassword.php?lostpassword=1') }}" class="tks-forgot-link forgot_password {{ config('display_login_source') ? 'd-none' : '' }}" style="color: #2563eb; text-decoration: none; font-weight: 500;">
+                                {{ __('Forgotten password?') }}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" name="submit" class="btn tks-btn-submit">
+                            {{ __('Sign in') }}
+                        </button>
+                    </div>
+
+                    <div class="tks-contact-admin">
+                        Don't have access? <a href="#" onclick="alert('Please contact your administrator to get account access.'); return false;">Contact your administrator.</a>
+                    </div>
+
+                    {% if config('use_public_faq') %}
+                        <div class="text-center mt-3 border-top pt-3">
+                            <a class="btn btn-sm btn-outline-secondary" href="{{ path('front/helpdesk.faq.php') }}">
+                                <i class="ti ti-help"></i>&nbsp;{{ __('FAQ') }}
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {% if right_panel %}
+                        <div class="mt-3 text-center">
+                            {{ call_plugin_hook(constant('Glpi\\Plugin\\Hooks::DISPLAY_LOGIN')) }}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+
+            {# Right Column: Deep Blue Hero Showcase Matching the User Design Exactly #}
+            <div class="tks-login-showcase-blue">
+                <div class="tks-decorative-dots"></div>
+                <div class="tks-bg-glow"></div>
+
+                <div class="tks-side-header">
+                    {# Brand Logo #}
+                    <div class="tks-side-logo">
+                        <img src="{{ path('pics/logos/logo-GLPI-250-white.png?v=tks2') }}" alt="Techknomatic" />
+                    </div>
+
+                    {# Headline #}
+                    <h2 class="tks-hero-heading">
+                        <span class="tks-cyan">Smart</span> <span class="tks-white">Ticketing.</span><br>
+                        <span class="tks-green">Stronger</span> <span class="tks-white">Support.</span>
+                    </h2>
+
+                    {# Subtitle #}
+                    <p class="tks-hero-subtitle">
+                        Streamline, track, and resolve IT issues faster with intelligent automation and real-time insights.
+                    </p>
+
+                    {# Accent Divider #}
+                    <div class="tks-hero-divider"></div>
+
+                    {# 4 Features List with Colored Badges #}
+                    <div class="tks-blue-features">
+                        {# 1. Track & Manage Tickets #}
+                        <div class="tks-blue-feature-item">
+                            <div class="tks-blue-icon-badge blue">
+                                <svg width="20" height="20" style="width:20px; height:20px; min-width:20px; max-width:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 5l0 2"/>
+                                    <path d="M15 11l0 2"/>
+                                    <path d="M15 17l0 2"/>
+                                    <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"/>
+                                </svg>
+                            </div>
+                            <div class="tks-blue-feature-content">
+                                <h4>Track & Manage Tickets</h4>
+                                <p>Monitor and resolve issues in real-time</p>
+                            </div>
+                        </div>
+
+                        {# 2. SLA & Performance #}
+                        <div class="tks-blue-feature-item">
+                            <div class="tks-blue-icon-badge green">
+                                <svg width="20" height="20" style="width:20px; height:20px; min-width:20px; max-width:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3v18h18"/>
+                                    <path d="M18 9l-5 5l-4 -4l-5 5"/>
+                                </svg>
+                            </div>
+                            <div class="tks-blue-feature-content">
+                                <h4>SLA & Performance</h4>
+                                <p>Stay on top of SLAs and team performance</p>
+                            </div>
+                        </div>
+
+                        {# 3. Secure & Reliable #}
+                        <div class="tks-blue-feature-item">
+                            <div class="tks-blue-icon-badge purple">
+                                <svg width="20" height="20" style="width:20px; height:20px; min-width:20px; max-width:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/>
+                                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="tks-blue-feature-content">
+                                <h4>Secure & Reliable</h4>
+                                <p>Enterprise-grade security and compliance</p>
+                            </div>
+                        </div>
+
+                        {# 4. Collaborate Seamlessly #}
+                        <div class="tks-blue-feature-item">
+                            <div class="tks-blue-icon-badge orange">
+                                <svg width="20" height="20" style="width:20px; height:20px; min-width:20px; max-width:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
+                                </svg>
+                            </div>
+                            <div class="tks-blue-feature-content">
+                                <h4>Collaborate Seamlessly</h4>
+                                <p>Work together and deliver better support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Bottom 3D Laptop Dashboard Visual #}
+                <div class="tks-laptop-mockup-container">
+                    <img src="{{ path('pics/laptop_dashboard_mockup.jpg') }}" alt="Ticket Dashboard Interface" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% if must_call_cron %}
+        <div style="background-image: url('{{ path('/front/cron.php') }}');"></div>
+    {% endif %}
+{% endblock %}
+
+{% block javascript_block %}
+    <script type="text/javascript">
+        $(function () {
+            $('#login_name').focus();
+
+            // Toggle password visibility
+            $('#togglePasswordBtn').on('click', function() {
+                var pwdInput = $('#login_password');
+                var icon = $('#togglePasswordIcon');
+                if (pwdInput.attr('type') === 'password') {
+                    pwdInput.attr('type', 'text');
+                    icon.removeClass('ti-eye').addClass('ti-eye-off');
+                } else {
+                    pwdInput.attr('type', 'password');
+                    icon.removeClass('ti-eye-off').addClass('ti-eye');
+                }
+            });
+
+            {% if show_lost_password and config('display_login_source') %}
+                if ($('select[name="auth"]').val() === 'local') {
+                    $('.forgot_password').removeClass('d-none');
+                }
+                $('select[name="auth"]').on('change', function () {
+                    if ($(this).val() === 'local') {
+                        $('.forgot_password').removeClass('d-none');
+                    } else {
+                        $('.forgot_password').addClass('d-none');
+                    }
+                });
+            {% endif %}
+        });
+    </script>
+{% endblock %}
